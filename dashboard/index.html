@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CampusFix student issue dashboard">
+  <title>CampusFix | Student Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand"><span class="brand-mark">C</span><span>CampusFix</span><button class="mobile-close icon-button" id="closeSidebar" aria-label="Close navigation">×</button></div>
+      <nav class="nav-list">
+        <a class="nav-link active" href="#dashboard" aria-current="page"><span>⌂</span>Dashboard</a>
+        <a class="nav-link" href="#issues"><span>▣</span>My Issues</a>
+        <button class="nav-link" data-open-report><span>＋</span>Report Issue</button>
+        <button class="nav-link" id="sidebarNotifications"><span>♧</span>Notifications <span class="nav-count" id="sidebarCount"></span></button>
+        <button class="nav-link" id="profileNav"><span>◉</span>Profile</button>
+      </nav>
+      <button class="nav-link logout-link" id="logoutButton"><span>⇥</span>Logout</button>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <div class="greeting"><p>Welcome back, Student <span aria-hidden="true">👋</span></p><span>Track and manage your campus issues.</span></div>
+        <div class="header-actions">
+          <label class="header-search"><span aria-hidden="true">⌕</span><input id="globalSearch" type="search" placeholder="Search issues" aria-label="Search issues"></label>
+          <div class="popover-wrap"><button class="icon-button badge-button" id="notificationButton" aria-label="Open notifications" aria-expanded="false">♧<span id="notificationCount">0</span></button>
+            <section class="dropdown notifications-dropdown" id="notificationDropdown" aria-label="Notifications"><div class="dropdown-head"><strong>Notifications</strong><button class="text-button" id="markAllRead">Mark all read</button></div><div id="notificationList"></div></section>
+          </div>
+          <button class="icon-button" id="themeToggle" aria-label="Toggle dark mode">◐</button>
+          <div class="popover-wrap profile-wrap"><button class="profile-button" id="profileButton" aria-label="Open profile menu" aria-expanded="false"><span class="avatar">S</span><span class="student-name">Student</span><span class="chevron">⌄</span></button>
+            <div class="dropdown profile-dropdown" id="profileDropdown"><button id="myProfile">My Profile</button><button id="settingsButton">Settings</button><button class="danger" id="dropdownLogout">Logout</button></div>
+          </div>
+        </div>
+      </header>
+      <section class="content-area">
+        <div class="section-heading"><div><h1>Dashboard overview</h1><p>Here is a snapshot of your reported issues.</p></div><button class="primary-button" data-open-report>＋ Report New Issue</button></div>
+        <section class="stats-grid" id="statsGrid" aria-label="Issue statistics"></section>
+        <section class="analytics-card" aria-labelledby="analyticsTitle"><div class="card-heading"><div><h2 id="analyticsTitle">Issue distribution</h2><p>Current status across all reported issues</p></div></div><div class="distribution" id="analytics"></div></section>
+        <section class="issues-card" id="issues" aria-labelledby="issuesTitle">
+          <div class="card-heading issues-heading"><div><h2 id="issuesTitle">Recent issues</h2><p>Search, filter, and follow up on your reports.</p></div><span class="results-count" id="resultsCount"></span></div>
+          <div class="filters"><label class="search-field"><span aria-hidden="true">⌕</span><input id="issueSearch" type="search" placeholder="Search by issue, category, location…" aria-label="Search your issues"></label><label><span class="sr-only">Filter by status</span><select id="statusFilter"><option value="All">All statuses</option><option>Pending</option><option>In Progress</option><option>Resolved</option><option>Escalated</option></select></label><label><span class="sr-only">Filter by category</span><select id="categoryFilter"><option value="All">All categories</option><option>Classroom</option><option>Network</option><option>Laboratory</option><option>Maintenance</option><option>Hostel</option><option>Safety</option><option>Cleanliness</option><option>Other</option></select></label></div>
+          <div class="table-wrap"><table><thead><tr><th>ID</th><th>Issue</th><th>Category</th><th>Location</th><th>Date</th><th>Status</th><th><span class="sr-only">Action</span></th></tr></thead><tbody id="issuesTableBody"></tbody></table></div>
+          <div class="empty-state" id="emptyState" hidden><span>⌕</span><h3>No matching issues</h3><p>Try changing your search or filter selection.</p></div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <div class="modal-layer" id="issueModal" role="dialog" aria-modal="true" aria-labelledby="issueModalTitle" hidden><div class="modal issue-modal"><button class="modal-close" data-close-modal aria-label="Close issue details">×</button><div id="issueModalContent"></div></div></div>
+  <div class="modal-layer" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle" hidden><div class="modal report-modal"><button class="modal-close" data-close-modal aria-label="Close report issue form">×</button><div class="modal-title"><span class="eyebrow">NEW REPORT</span><h2 id="reportModalTitle">Report a campus issue</h2><p>Give us the details and the right team can get started.</p></div><form id="reportForm" novalidate><div class="form-grid"><label class="full">Issue title<input name="title" maxlength="90" required placeholder="e.g. Broken classroom projector"><small>Up to 90 characters</small></label><label>Category<select name="category" required><option value="">Select category</option><option>Classroom</option><option>Network</option><option>Laboratory</option><option>Maintenance</option><option>Hostel</option><option>Safety</option><option>Cleanliness</option><option>Other</option></select></label><label>Location<input name="location" maxlength="80" required placeholder="e.g. Block A - Room 301"></label><label class="full">Description<textarea name="description" rows="4" maxlength="500" required placeholder="Describe the issue and how it affects you."></textarea><small>Up to 500 characters</small></label><label class="full">Optional image<input name="image" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG, or WebP — maximum 5 MB</small></label></div><div class="form-actions"><button type="button" class="secondary-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Submit issue</button></div></form></div></div>
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
