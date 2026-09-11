@@ -4,10 +4,7 @@ Spring Boot REST API for CampusFix. This project uses Java 21, Spring Boot, Spri
 
 ## Prerequisites
 
-- JDK 21 or newer
-- Maven 3.9 or newer
-- MySQL 8 or newer
-
+This project uses Java 25, Spring Boot, Spring Data JPA, Spring Security, Bean Validation, and MySQL.
 ## Local configuration
 
 Set the following environment variables before starting the application. Never commit their real values.
