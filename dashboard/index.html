@@ -14,7 +14,7 @@
       <nav class="nav-list">
         <a class="nav-link active" href="#dashboard" aria-current="page"><span>⌂</span>Dashboard</a>
         <a class="nav-link" href="#issues"><span>▣</span>My Issues</a>
-        <button class="nav-link" data-open-report><span>＋</span>Report Issue</button>
+        <a class="nav-link" href="../pages/report.html"><span>＋</span>Report Issue</a>
         <button class="nav-link" id="sidebarNotifications"><span>♧</span>Notifications <span class="nav-count" id="sidebarCount"></span></button>
         <button class="nav-link" id="profileNav"><span>◉</span>Profile</button>
       </nav>
@@ -37,9 +37,16 @@
         </div>
       </header>
       <section class="content-area">
-        <div class="section-heading"><div><h1>Dashboard overview</h1><p>Here is a snapshot of your reported issues.</p></div><button class="primary-button" data-open-report>＋ Report New Issue</button></div>
+        <div class="section-heading"><div><span class="eyebrow">STUDENT CONTROL CENTER</span><h1>Dashboard overview</h1><p>Keep track of every issue and its progress in one place.</p></div><a class="primary-button" href="../pages/report.html">＋ Report an Issue</a></div>
         <section class="stats-grid" id="statsGrid" aria-label="Issue statistics"></section>
-        <section class="analytics-card" aria-labelledby="analyticsTitle"><div class="card-heading"><div><h2 id="analyticsTitle">Issue distribution</h2><p>Current status across all reported issues</p></div></div><div class="distribution" id="analytics"></div></section>
+        <div class="overview-grid">
+          <section class="analytics-card" aria-labelledby="analyticsTitle"><div class="card-heading"><div><h2 id="analyticsTitle">Issue distribution</h2><p>Current status across all reported issues</p></div><span class="chart-key">Live overview</span></div><div class="distribution" id="analytics"></div></section>
+          <aside class="profile-card" aria-labelledby="profileSummaryTitle"><div class="profile-card-top"><span class="profile-avatar-large">S</span><div><p class="eyebrow">STUDENT PROFILE</p><h2 id="profileSummaryTitle">Student account</h2><span>Your issue workspace</span></div></div><div class="profile-progress"><div><span>Reports resolved</span><strong id="resolutionRate">—</strong></div><div class="progress-track"><span id="resolutionBar"></span></div></div><button class="outline-button" id="profileSummaryButton">Manage profile <span aria-hidden="true">→</span></button></aside>
+        </div>
+        <section class="utility-grid" aria-label="Student dashboard tools">
+          <article class="activity-card"><div class="card-heading"><div><h2>Recent activity</h2><p>Latest updates to your reports</p></div></div><div class="activity-list" id="activityList"></div></article>
+          <article class="quick-card"><span class="eyebrow">QUICK ACTIONS</span><h2>What would you like to do?</h2><p>Find a report, review updates, or submit a new issue on the dedicated reporting page.</p><div class="quick-actions"><a href="#issues" class="quick-action"><span>⌕</span>Find an issue</a><button class="quick-action" id="quickNotifications"><span>♧</span>View notifications</button><a href="../pages/report.html" class="quick-action accent"><span>＋</span>Report an issue</a></div></article>
+        </section>
         <section class="issues-card" id="issues" aria-labelledby="issuesTitle">
           <div class="card-heading issues-heading"><div><h2 id="issuesTitle">Recent issues</h2><p>Search, filter, and follow up on your reports.</p></div><span class="results-count" id="resultsCount"></span></div>
           <div class="filters"><label class="search-field"><span aria-hidden="true">⌕</span><input id="issueSearch" type="search" placeholder="Search by issue, category, location…" aria-label="Search your issues"></label><label><span class="sr-only">Filter by status</span><select id="statusFilter"><option value="All">All statuses</option><option>Pending</option><option>In Progress</option><option>Resolved</option><option>Escalated</option></select></label><label><span class="sr-only">Filter by category</span><select id="categoryFilter"><option value="All">All categories</option><option>Classroom</option><option>Network</option><option>Laboratory</option><option>Maintenance</option><option>Hostel</option><option>Safety</option><option>Cleanliness</option><option>Other</option></select></label></div>
@@ -50,7 +57,6 @@
     </main>
   </div>
   <div class="modal-layer" id="issueModal" role="dialog" aria-modal="true" aria-labelledby="issueModalTitle" hidden><div class="modal issue-modal"><button class="modal-close" data-close-modal aria-label="Close issue details">×</button><div id="issueModalContent"></div></div></div>
-  <div class="modal-layer" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle" hidden><div class="modal report-modal"><button class="modal-close" data-close-modal aria-label="Close report issue form">×</button><div class="modal-title"><span class="eyebrow">NEW REPORT</span><h2 id="reportModalTitle">Report a campus issue</h2><p>Give us the details and the right team can get started.</p></div><form id="reportForm" novalidate><div class="form-grid"><label class="full">Issue title<input name="title" maxlength="90" required placeholder="e.g. Broken classroom projector"><small>Up to 90 characters</small></label><label>Category<select name="category" required><option value="">Select category</option><option>Classroom</option><option>Network</option><option>Laboratory</option><option>Maintenance</option><option>Hostel</option><option>Safety</option><option>Cleanliness</option><option>Other</option></select></label><label>Location<input name="location" maxlength="80" required placeholder="e.g. Block A - Room 301"></label><label class="full">Description<textarea name="description" rows="4" maxlength="500" required placeholder="Describe the issue and how it affects you."></textarea><small>Up to 500 characters</small></label><label class="full">Optional image<input name="image" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG, or WebP — maximum 5 MB</small></label></div><div class="form-actions"><button type="button" class="secondary-button" data-close-modal>Cancel</button><button type="submit" class="primary-button">Submit issue</button></div></form></div></div>
   <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
   <script src="script.js"></script>
 </body>
