@@ -1,0 +1,32 @@
+/* ===== Report Modal ===== */
+.cf-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, .6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; padding: 20px;
+}
+.cf-modal {
+  background: #fff; border-radius: 12px; overflow: hidden;
+  width: 100%; max-width: 900px; max-height: 92vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+.cf-modal-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 20px; border-bottom: 1px solid #eef1f6;
+  background: #f9fafb;
+}
+.cf-modal-head h3 { margin: 0; font-size: 16px; color: #1e3a8a; }
+.cf-modal-close {
+  background: transparent; border: none; cursor: pointer;
+  font-size: 18px; color: #6b7280; padding: 4px 8px;
+}
+.cf-modal-close:hover { color: #111; background: #eef1f6; border-radius: 6px; }
+
+.cf-modal-body { flex: 1; overflow: auto; padding: 12px; background: #f4f6fa; }
+
+.cf-modal-foot {
+  display: flex; gap: 10px; padding: 14px 20px;
+  border-top: 1px solid #eef1f6; justify-content: flex-end;
+  background: #f9fafb;
+}
+.cf-modal-foot .btn { padding: 10px 18px; }
