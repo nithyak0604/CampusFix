@@ -1,0 +1,4 @@
+package com.campusfix.repository;
+import com.campusfix.entity.IssueImage;
+import org.springframework.data.jpa.repository.JpaRepository;
+public interface IssueImageRepository extends JpaRepository<IssueImage, Long> {}
